@@ -1,0 +1,135 @@
+/* ============================================================
+   DARK MOODY THEME — Tirana mit Nigel
+
+   HOW TO ADD BACKGROUND IMAGES LATER:
+   Find the section you want, e.g.:
+     .tm-hero { background-image: url('/blog-test/tirana-blog/img/hero.jpg'); }
+   The ::before overlay on each section handles darkening automatically.
+   ============================================================ */
+
+/* --- Override CSS design tokens ---
+   Elements using var(--night), var(--ink), etc. inherit these values
+   automatically, even when set via inline styles. */
+:root {
+  --night:     #f0e8df;
+  --ink:       #e8dfd5;
+  --ink-muted: rgba(232, 223, 213, 0.68);
+  --ink-faint: rgba(232, 223, 213, 0.38);
+  --line:      rgba(232, 223, 213, 0.08);
+}
+
+/* --- Base background --- */
+body,
+body.t-paper-texture {
+  background-color: #0c0b0a !important;
+  background-image: none !important;
+  color: #e8dfd5 !important;
+}
+
+/* --- Header --- */
+header {
+  background-color: rgba(10, 9, 8, 0.90) !important;
+  border-bottom-color: rgba(232, 223, 213, 0.08) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+/* --- Main gradient — warm ember at top fades to near-black ---
+   Each first-level child inside main becomes a "section slot"
+   ready to receive a background image later. */
+main {
+  background: linear-gradient(
+    180deg,
+    #1c0f0c 0%,
+    #0e0c0b 20%,
+    #0c0b0a 100%
+  );
+}
+
+/* --- Hero slot (first section in main) ---
+   Add: background-image: url('...') to .tm-hero or main > *:first-child
+   when the photo is ready. */
+main > *:first-child {
+  position: relative;
+  isolation: isolate;
+  background-color: #1c0f0c;
+  /* Uncomment when image is ready:
+  background-image: url('/blog-test/tirana-blog/img/hero.jpg');
+  background-size: cover;
+  background-position: center; */
+}
+main > *:first-child::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    rgba(28, 15, 12, 0.88) 0%,
+    rgba(12, 11, 10, 0.70) 100%
+  );
+}
+
+/* --- Content section slots (alternating warm/cool dark) ---
+   To add an image to any section, give it the class .tm-section-img
+   and set background-image on it directly. */
+main > *:nth-child(even) {
+  background-color: #111009;
+}
+main > *:nth-child(odd):not(:first-child) {
+  background-color: #0c0b0a;
+}
+
+/* Shared overlay for any section that has a background image */
+.tm-section-img {
+  position: relative;
+  isolation: isolate;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.tm-section-img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    rgba(12, 8, 7, 0.82) 0%,
+    rgba(12, 11, 10, 0.60) 100%
+  );
+}
+
+/* --- Cards / article tiles --- */
+article,
+.t-card {
+  background-color: rgba(255, 255, 255, 0.035) !important;
+  border-color: rgba(232, 223, 213, 0.08) !important;
+}
+
+/* --- Inline text colour overrides (for elements NOT using CSS vars) --- */
+h1, h2, h3, h4, h5, h6 {
+  color: #f0e8df !important;
+}
+p {
+  color: rgba(232, 223, 213, 0.72) !important;
+}
+address {
+  color: rgba(232, 223, 213, 0.65) !important;
+}
+a:not(.t-btn):not(.t-nav-link) {
+  color: #e8dfd5 !important;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #080706 !important;
+  border-top: 1px solid rgba(232, 223, 213, 0.06) !important;
+}
+
+/* --- Mobile menu overlay (if present) --- */
+#mobile-menu {
+  background-color: #0c0b0a !important;
+  border-color: rgba(232, 223, 213, 0.08) !important;
+}
