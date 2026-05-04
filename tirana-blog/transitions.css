@@ -1,8 +1,14 @@
-/* Page slide-up + fade transition for the Tirana blog. */
+/* Page transitions for the Tirana blog. */
 @media (prefers-reduced-motion: no-preference) {
   .tirana-page-enter {
     animation: tirana-page-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
     will-change: transform, opacity;
+  }
+  .tirana-page-exit {
+    animation: tirana-page-exit 260ms cubic-bezier(0.4, 0, 0.8, 0.6) both;
+    will-change: transform, opacity;
+    /* Prevent interaction during exit so double-clicks don't queue two navigations */
+    pointer-events: none;
   }
   @keyframes tirana-page-enter {
     from {
@@ -12,6 +18,16 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+  @keyframes tirana-page-exit {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-24px);
     }
   }
 }
